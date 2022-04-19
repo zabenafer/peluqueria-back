@@ -21,7 +21,12 @@ public class TurnoService {
 	
 	public List<Turno> findByNombreTratamiento(String nombre){
 		return turnoRepository.findByNombreTratamiento(nombre);
+	}
+	
+	public List<Turno> findByTurnoXCliente(Long id){
+		return turnoRepository.findByTurnoXCliente(id);
 	}	
+	
 	public List<Turno> findTurnosByCliente(Long id) {
 		List<Turno> turnosResp = new ArrayList<>();
 		List<Turno> turnos = turnoRepository.findAll();

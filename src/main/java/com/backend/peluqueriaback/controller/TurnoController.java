@@ -41,7 +41,7 @@ public class TurnoController {
 	
 	@GetMapping("/findturnosxclientes/{id}")
 	public ResponseEntity<List<Turno>> getAllTurnosByClientes(@PathVariable("id") Long idCliente) {
-		List<Turno> turnos = turnoService.findTurnosByCliente(idCliente);
+		List<Turno> turnos = turnoService.findByTurnoXCliente(idCliente);
 		return new ResponseEntity<List<Turno>>(turnos, HttpStatus.OK);
 	}
 	
@@ -59,12 +59,15 @@ public class TurnoController {
 	
 	@PostMapping("/add")
 	public ResponseEntity<Turno> addTurno(@RequestBody Turno turno) {
-		System.out.println("Fecha: "+ turno.getFecha_turno());
 		try {
 			if (Objects.isNull(turno.getFecha_turno()))
-				return new ResponseEntity(new Mensaje("La fecha es obligatoria"), HttpStatus.BAD_REQUEST);				
+				return new ResponseEntity(new Mensaje("La fecha es obligatoria"), HttpStatus.BAD_REQUEST);					
 			if (turno.getPrecio() <= 0) 
 				return new ResponseEntity(new Mensaje("El Precio es obligatorio"), HttpStatus.BAD_REQUEST);
+			if (Objects.isNull(turno.getTratamiento().getId_tratamiento()))
+				return new ResponseEntity(new Mensaje("El tratamiento es obligatorio"), HttpStatus.BAD_REQUEST);
+			if (Objects.isNull(turno.getCliente().getId_cliente()))
+				return new ResponseEntity(new Mensaje("El cliente es obligatorio"), HttpStatus.BAD_REQUEST);
 			Turno newTurno = turnoService.addTurno(turno);
 			return new ResponseEntity<>(newTurno, HttpStatus.CREATED);			
 		} catch (Exception e) {
