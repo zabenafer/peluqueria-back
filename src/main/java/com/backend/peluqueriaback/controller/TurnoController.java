@@ -72,8 +72,7 @@ public class TurnoController {
 			return new ResponseEntity<>(newTurno, HttpStatus.CREATED);			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-		}
-
+		}		
 	}
 	
 	@PutMapping("/update")

@@ -17,49 +17,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.peluqueriaback.dto.Mensaje;
-import com.backend.peluqueriaback.entity.Tratamiento;
-import com.backend.peluqueriaback.service.TratamientoService;
+import com.backend.peluqueriaback.entity.Producto;
+import com.backend.peluqueriaback.service.ProductoService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/tratamiento")
-public class TratamientoController {
+@RequestMapping("/producto")
+public class ProductoController {
 	
 	@Autowired
-	TratamientoService tratamientoService;
+	ProductoService productoService;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<Tratamiento>> getAllTratamiento() {
-		List<Tratamiento> tratamientos = tratamientoService.findAllTratamiento();
-		return new ResponseEntity<List<Tratamiento>>(tratamientos, HttpStatus.OK);
+	public ResponseEntity<List<Producto>> getAllProducto() {
+		List<Producto> producto = productoService.findAllProducto();
+		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);
 	}
 	@PostMapping("/add")
-	public ResponseEntity<Tratamiento> addTratamiento(@RequestBody Tratamiento tratamiento) {
+	public ResponseEntity<Producto> addProducto(@RequestBody Producto producto) {
 		try {
-			if (StringUtils.isBlank(tratamiento.getNombre())) 
+			if (StringUtils.isBlank(producto.getNombre())) 
 				return new ResponseEntity(new Mensaje("El Nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-			if (tratamiento.getPrecio() <= 0) 
+			if (producto.getPrecio() <= 0) 
 				return new ResponseEntity(new Mensaje("El Precio es obligatorio"), HttpStatus.BAD_REQUEST);
-			Tratamiento newTratamiento = tratamientoService.addTratamiento(tratamiento);
-			return new ResponseEntity<>(newTratamiento, HttpStatus.CREATED);			
+			Producto newProducto = productoService.addProducto(producto);
+			return new ResponseEntity<>(newProducto, HttpStatus.CREATED);			
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}
 	
 	@PutMapping("/update")
-	public ResponseEntity<Tratamiento> updateTratamiento(@RequestBody Tratamiento tratamiento) {
-		if (StringUtils.isBlank(tratamiento.getNombre())) 
+	public ResponseEntity<Producto> updateProducto(@RequestBody Producto producto) {
+		if (StringUtils.isBlank(producto.getNombre())) 
 			return new ResponseEntity(new Mensaje("El Nombre es obligatorio"), HttpStatus.BAD_REQUEST);
-		if (tratamiento.getPrecio() <= 0) 
+		if (producto.getPrecio() <= 0) 
 			return new ResponseEntity(new Mensaje("El Precio es obligatorio"), HttpStatus.BAD_REQUEST);
-		Tratamiento updateTratamiento = tratamientoService.updateTratamiento(tratamiento);
-		return new ResponseEntity<>(updateTratamiento, HttpStatus.OK);
+		Producto updateProducto = productoService.updateProducto(producto);
+		return new ResponseEntity<>(updateProducto, HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteTratamiento(@PathVariable("id") Long id) {
-		tratamientoService.deleteTratamiento(id);
+	public ResponseEntity<?> deleteProducto(@PathVariable("id") Long id) {
+		productoService.deleteProducto(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

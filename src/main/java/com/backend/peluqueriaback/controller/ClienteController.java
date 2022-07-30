@@ -69,7 +69,6 @@ public class ClienteController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
-
 	}
 	
 	@PutMapping("/update")

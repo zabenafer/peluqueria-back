@@ -1,5 +1,4 @@
 package com.backend.peluqueriaback.entity;
-import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,24 +10,25 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Entity
 @Data
-@Table(name = "turno")
-public class Turno {
+@Entity
+@Table(name = "producto")
+public class Producto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_turno;
-	private LocalDate fecha_turno;
-	private int precio;
-	private String descripcion; 
+	private Long id_producto;
+	private String nombre;
+	private int cantidad;
+	private float precio;
+	private String descripcion;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_tratamiento")
-	private Tratamiento tratamiento;
+	@JoinColumn(name = "id_proveedor")
+	private Proveedor proveedor;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_cliente")
-	private Cliente cliente;
+	@JoinColumn(name = "id_categoria")
+	private Categoria categoria;
 
 }
