@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.peluqueriaback.dto.Mensaje;
+import com.backend.peluqueriaback.dto.ReporteTurnoxMes;
+import com.backend.peluqueriaback.dto.ReporteTurnoxTratamiento;
 import com.backend.peluqueriaback.entity.Turno;
 import com.backend.peluqueriaback.service.TurnoService;
 
@@ -55,6 +57,18 @@ public class TurnoController {
 	public ResponseEntity<List<Turno>> getTurnosByNombreTratamiento(@PathVariable("nombre") String nombre) {
 		List<Turno> turnos = turnoService.findByNombreTratamiento(nombre);
 		return new ResponseEntity<List<Turno>>(turnos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/findcantturnosxtratamientos")
+	public ResponseEntity<List<ReporteTurnoxTratamiento>> getCantTurnosXTratamientos() {
+		List<ReporteTurnoxTratamiento> turnos = turnoService.FindCantTurnosXTratamiento();
+		return new ResponseEntity<List<ReporteTurnoxTratamiento>>(turnos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/findcantturnosxmes")
+	public ResponseEntity<List<ReporteTurnoxMes>> getCantTurnosXMes() {
+		List<ReporteTurnoxMes> turnos = turnoService.FindCantTurnosXMes();
+		return new ResponseEntity<List<ReporteTurnoxMes>>(turnos, HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")

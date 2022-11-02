@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.backend.peluqueriaback.entity.Cliente;
 import com.backend.peluqueriaback.entity.Producto;
+import com.backend.peluqueriaback.exception.UserNotFoundException;
 import com.backend.peluqueriaback.repository.ProductoRepository;
 
 @Service
@@ -16,6 +18,10 @@ public class ProductoService {
 	
 	public List<Producto> findAllProducto(){
 		return productoRepository.findAll();
+	}
+	
+	public Producto findProductoById(Long id_producto) {
+		return productoRepository.findById(id_producto).orElseThrow(() -> new UserNotFoundException("user"));
 	}
 	
 	public Producto addProducto(Producto producto) {

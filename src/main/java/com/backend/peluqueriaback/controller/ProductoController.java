@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.peluqueriaback.dto.Mensaje;
+import com.backend.peluqueriaback.entity.Cliente;
 import com.backend.peluqueriaback.entity.Producto;
 import com.backend.peluqueriaback.service.ProductoService;
 
@@ -33,6 +34,13 @@ public class ProductoController {
 		List<Producto> producto = productoService.findAllProducto();
 		return new ResponseEntity<List<Producto>>(producto, HttpStatus.OK);
 	}
+	
+	@GetMapping("/find/{id}")
+	public ResponseEntity<Producto> getProductoById(@PathVariable("id") Long id) {
+		Producto producto = productoService.findProductoById(id);
+		return new ResponseEntity<>(producto, HttpStatus.OK);
+	}
+	
 	@PostMapping("/add")
 	public ResponseEntity<Producto> addProducto(@RequestBody Producto producto) {
 		try {

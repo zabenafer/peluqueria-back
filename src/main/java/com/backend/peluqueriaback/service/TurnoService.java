@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.backend.peluqueriaback.dto.ReporteTurnoxMes;
+import com.backend.peluqueriaback.dto.ReporteTurnoxTratamiento;
 import com.backend.peluqueriaback.entity.Turno;
 import com.backend.peluqueriaback.repository.TurnoRepository;
 
@@ -16,7 +18,7 @@ public class TurnoService {
 	TurnoRepository turnoRepository;
 	
 	public List<Turno> findAllTurno(){
-		return turnoRepository.findAll();
+		return turnoRepository.findTurnoByOrderFecha();
 	}
 	
 	public List<Turno> findByNombreTratamiento(String nombre){
@@ -57,10 +59,17 @@ public class TurnoService {
 		for (int i = 0; i < turnos.size(); i++) {
 			if (turnos.get(i).getTratamiento().getId_tratamiento() == id) {
 				turnosResp.add(turnos.get(i));
-			}
-			
+			}			
 		}
 		return turnosResp;
+	}
+	
+	public List<ReporteTurnoxTratamiento> FindCantTurnosXTratamiento(){
+		return turnoRepository.ReporteCantTurnosXTratamiento();
+	}
+	
+	public List<ReporteTurnoxMes> FindCantTurnosXMes(){
+		return turnoRepository.ReporteCantTurnosXMes();
 	}
 
 }

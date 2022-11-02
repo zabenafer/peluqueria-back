@@ -18,9 +18,6 @@ public class DetalleVentaService {
 		return detalleVentaRepository.findAll();
 	}
 	
-	public DetalleVenta addDetalleVenta(DetalleVenta detalleVenta) {
-		return detalleVentaRepository.save(detalleVenta);
-	}
 	
 	public DetalleVenta updateDetalleVenta(DetalleVenta detalleVenta) {
 		return detalleVentaRepository.save(detalleVenta);
@@ -28,6 +25,10 @@ public class DetalleVentaService {
 	
 	public void deleteDetalleVenta(Long id) {
 		detalleVentaRepository.deleteById(id);
+	}
+	
+	public List<DetalleVenta> findByDetalleVentaXVenta(Long id){
+		return detalleVentaRepository.findByDetalleVentaXVenta(id);
 	}
 	
 }
