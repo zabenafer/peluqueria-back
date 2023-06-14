@@ -59,15 +59,21 @@ public class TurnoController {
 		return new ResponseEntity<List<Turno>>(turnos, HttpStatus.OK);
 	}
 	
-	@GetMapping("/findcantturnosxtratamientos")
-	public ResponseEntity<List<ReporteTurnoxTratamiento>> getCantTurnosXTratamientos() {
-		List<ReporteTurnoxTratamiento> turnos = turnoService.FindCantTurnosXTratamiento();
+	@GetMapping("/findcantturnosxtratamientos/{mes}/{anio}")
+	public ResponseEntity<List<ReporteTurnoxTratamiento>> getCantTurnosXTratamientos(@PathVariable("mes") int mes, @PathVariable("anio") int anio) {
+		List<ReporteTurnoxTratamiento> turnos = turnoService.FindCantTurnosXTratamiento(mes, anio);
 		return new ResponseEntity<List<ReporteTurnoxTratamiento>>(turnos, HttpStatus.OK);
 	}
 	
-	@GetMapping("/findcantturnosxmes")
-	public ResponseEntity<List<ReporteTurnoxMes>> getCantTurnosXMes() {
-		List<ReporteTurnoxMes> turnos = turnoService.FindCantTurnosXMes();
+	@GetMapping("/findtotalingresoxmes/{mes}/{anio}")
+	public ResponseEntity<List<ReporteTurnoxMes>> getTotalIngresoXMes(@PathVariable("mes") int mes, @PathVariable("anio") int anio) {
+		List<ReporteTurnoxMes> turnos = turnoService.FinTotalIngresoXMes(mes, anio);
+		return new ResponseEntity<List<ReporteTurnoxMes>>(turnos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/findcantturnosxmes/{mes}/{anio}")
+	public ResponseEntity<List<ReporteTurnoxMes>> getCantTurnosXMes(@PathVariable("mes") int mes, @PathVariable("anio") int anio) {
+		List<ReporteTurnoxMes> turnos = turnoService.FindCantTurnosXMes(mes, anio);
 		return new ResponseEntity<List<ReporteTurnoxMes>>(turnos, HttpStatus.OK);
 	}
 	

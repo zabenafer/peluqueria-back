@@ -59,17 +59,21 @@ public class TurnoService {
 		for (int i = 0; i < turnos.size(); i++) {
 			if (turnos.get(i).getTratamiento().getId_tratamiento() == id) {
 				turnosResp.add(turnos.get(i));
-			}			
+			}
 		}
 		return turnosResp;
 	}
 	
-	public List<ReporteTurnoxTratamiento> FindCantTurnosXTratamiento(){
-		return turnoRepository.ReporteCantTurnosXTratamiento();
+	public List<ReporteTurnoxTratamiento> FindCantTurnosXTratamiento(int mes, int anio){
+		return turnoRepository.ReporteCantTurnosXTratamiento(mes, anio);
 	}
 	
-	public List<ReporteTurnoxMes> FindCantTurnosXMes(){
-		return turnoRepository.ReporteCantTurnosXMes();
+	public List<ReporteTurnoxMes> FindCantTurnosXMes(int mes, int anio){
+		return turnoRepository.ReporteCantTurnosXMes(mes, anio);
+	}
+	
+	public List<ReporteTurnoxMes> FinTotalIngresoXMes(int mes, int anio){
+		return turnoRepository.ReporteTotalxMes(mes, anio);
 	}
 
 }

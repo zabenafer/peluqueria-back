@@ -23,15 +23,13 @@ public interface TurnoRepository extends JpaRepository<Turno, Long> {
 	@Query(value = "SELECT * FROM turno order by fecha_turno asc", nativeQuery=true)
 	List<Turno> findTurnoByOrderFecha();
 	
-	@Query(value = "SELECT COUNT(id_turno) as Cantidad, tratamiento.id_tratamiento, tratamiento.nombre FROM turno INNER join tratamiento on tratamiento.id_tratamiento = turno.id_tratamiento group by tratamiento.id_tratamiento", nativeQuery=true)
-	List<ReporteTurnoxTratamiento> ReporteCantTurnosXTratamiento();
+	@Query(value = "SELECT COUNT(id_turno) as Cantidad, tratamiento.id_tratamiento, tratamiento.nombre FROM turno INNER join tratamiento on tratamiento.id_tratamiento = turno.id_tratamiento where MONTH(fecha_turno) = :mes AND YEAR(fecha_turno) = :anio group by tratamiento.id_tratamiento", nativeQuery=true)
+	List<ReporteTurnoxTratamiento> ReporteCantTurnosXTratamiento(int mes, int anio);
 	
-	@Query(value = "SELECT MONTHNAME(t.fecha_turno) AS Mes,\r\n" + 
-			"COUNT(t.id_turno) AS Cantidad\r\n" + 
-			"FROM turno t\r\n" + 
-			"WHERE YEAR(t.fecha_turno) = '2022'\r\n" + 
-			"GROUP BY Mes\r\n" + 
-			"ORDER BY Mes ASC;", nativeQuery=true)
-	List<ReporteTurnoxMes> ReporteCantTurnosXMes();
+	@Query(value = "Select COUNT(ID_TURNO) AS Cantidad from turno where MONTH(fecha_turno) = :mes AND YEAR(fecha_turno) = :anio", nativeQuery=true)
+	List<ReporteTurnoxMes> ReporteCantTurnosXMes(int mes, int anio);
+	
+	@Query(value = "Select SUM(precio) as precio from turno where MONTH(fecha_turno) = :mes AND YEAR(fecha_turno) = :anio", nativeQuery=true)
+	List<ReporteTurnoxMes> ReporteTotalxMes(int mes, int anio);
 
 }
